@@ -1,20 +1,11 @@
 "use client";
 
-import {
-  LogOut,
-  Moon,
-  Settings2,
-  Sun,
-  User,
-  UserCircle2,
-} from "lucide-react";
+import { LogOut, Moon, Settings2, Sun, User, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Button } from "@/src/components/ui/button";
@@ -30,12 +21,17 @@ export default function Navbar() {
     <nav className="p-4 flex items-center justify-between">
       {/* LADO ESQUERDO - Botão para abrir/fechar sidebar */}
       <SidebarTrigger />
-
       {/* LADO DIREITO - Links e menus de usuário */}
       <div className="flex items-center gap-4">
-        {/* Link para a página do Dashboard */}
-        <Link href="/">Dashboard</Link>
-
+        {/* Titulo da pagina */}
+        <div className="flex flex-col px-4">
+          <Link className="font-bold text-[1.125rem]" href="/">
+            Dashboard
+          </Link>
+          <span className="text-[0.775rem] text-muted-foreground">
+            Visão geral - Manaus/AM
+          </span>
+        </div>
         {/* MENU DROPDOWN DE TEMAS */}
         <DropdownMenu>
           {/* Botão que abre o menu de temas */}
@@ -70,14 +66,10 @@ export default function Navbar() {
         <DropdownMenu>
           {/* Ícone de usuário que abre o menu */}
           <DropdownMenuTrigger>
-            <UserCircle2 className="h-8 w-8 cursor-pointer" />
+            <UserCircle2 className="cursor-pointer" />
           </DropdownMenuTrigger>
           {/* Conteúdo do menu com espaçamento superior de 10px */}
           <DropdownMenuContent sideOffset={10}>
-            {/* Título do menu */}
-            <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
-            {/* Linha divisória */}
-            <DropdownMenuSeparator />
             {/* Opção para ver perfil do usuário */}
             <DropdownMenuItem>
               <User className="h-[1.2rem] w-[1.2rem] mr-2" />

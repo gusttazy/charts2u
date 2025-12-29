@@ -1,26 +1,30 @@
+import Link from "next/link";
 import {
-  Home,
-  Plus,
-  Search,
-  Settings,
   ChartNoAxesCombined,
   ChartPie,
+  Home,
+  Search,
+  Settings,
 } from "lucide-react";
+
 import {
-  SidebarContent,
-  SidebarHeader,
   Sidebar,
+  SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
-import Link from "next/link";
 
-// Array com os itens do menu da sidebar
-// Cada item possui título, URL de destino e ícone
-const items = [
+type SidebarItem = {
+  title: string;
+  url: string;
+  icon: React.ElementType;
+};
+
+const items: SidebarItem[] = [
   {
     title: "Início",
     url: "/",
@@ -30,11 +34,6 @@ const items = [
     title: "Pesquisar",
     url: "/",
     icon: Search,
-  },
-  {
-    title: "Adicionar",
-    url: "/",
-    icon: Plus,
   },
   {
     title: "Estatísticas",
@@ -50,34 +49,28 @@ const items = [
 
 export default function AppSidebar() {
   return (
-    // Sidebar principal com opção de colapsar em ícones
-    <Sidebar collapsible="icon">
-      {/* Cabeçalho da sidebar com logo/nome do app */}
+    <Sidebar collapsible="icon" aria-label="Menu lateral principal">
       <SidebarHeader className="py-6">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <ChartPie />
+            <SidebarMenuButton aria-label="Página inicial do dashboard">
+              <ChartPie aria-hidden />
               <span className="font-semibold">charts2u</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      {/* Conteúdo principal da sidebar */}
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* Mapeia cada item do array criando um link de navegação */}
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  {/* asChild permite que o Link do Next.js seja o elemento clicável */}
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      {/* Renderiza o ícone do item */}
-                      <item.icon className="mr-2 h-4 w-4" />
-                      {/* Renderiza o título do item */}
-                      <span>{item.title}</span>
+              {items.map(({ title, url, icon: Icon }) => (
+                <SidebarMenuItem key={title}>
+                  <SidebarMenuButton asChild aria-label={title}>
+                    <Link href={url}>
+                      <Icon className="mr-2 h-4 w-4" aria-hidden />
+                      <span>{title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

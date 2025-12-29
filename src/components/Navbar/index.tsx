@@ -1,88 +1,76 @@
 "use client";
 
 import { LogOut, Moon, Settings2, Sun, User, UserCircle2 } from "lucide-react";
-import Link from "next/link";
+import { useTheme } from "next-themes";
+
+import { Button } from "@/src/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { Button } from "@/src/components/ui/button";
-import { useTheme } from "next-themes";
 import { SidebarTrigger } from "../ui/sidebar";
 
 export default function Navbar() {
-  // Hook para gerenciar o tema (claro/escuro/sistema)
   const { setTheme } = useTheme();
 
   return (
-    // Navbar principal com padding e itens distribuídos entre as extremidades
-    <nav className="p-4 flex items-center justify-between">
-      {/* LADO ESQUERDO - Botão para abrir/fechar sidebar */}
-      <SidebarTrigger />
-      {/* LADO DIREITO - Links e menus de usuário */}
+    <nav
+      className="flex items-center justify-between p-4"
+      aria-label="Barra de navegação principal"
+    >
+      <SidebarTrigger aria-label="Alternar sidebar" />
+
       <div className="flex items-center gap-4">
-        {/* Titulo da pagina */}
-        <div className="flex flex-col px-4">
-          <Link className="font-bold text-[1.125rem]" href="/">
-            Dashboard
-          </Link>
-          <span className="text-[0.775rem] text-muted-foreground">
-            Visão geral - Manaus/AM
-          </span>
-        </div>
-        {/* MENU DROPDOWN DE TEMAS */}
         <DropdownMenu>
-          {/* Botão que abre o menu de temas */}
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              {/* Ícone de sol - visível no tema claro */}
-              <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-              {/* Ícone de lua - visível no tema escuro */}
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-              {/* Texto acessível para leitores de tela */}
-              <span className="sr-only">Trocar Tema</span>
+            <Button variant="ghost" size="icon" aria-label="Alterar tema">
+              <Sun
+                className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
+                aria-hidden
+              />
+              <Moon
+                className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
+                aria-hidden
+              />
+              <span className="sr-only">Trocar tema</span>
             </Button>
           </DropdownMenuTrigger>
-          {/* Conteúdo do dropdown alinhado à direita */}
+
           <DropdownMenuContent align="end">
-            {/* Opção para tema claro */}
             <DropdownMenuItem onClick={() => setTheme("light")}>
-              Light
+              Claro
             </DropdownMenuItem>
-            {/* Opção para tema escuro */}
             <DropdownMenuItem onClick={() => setTheme("dark")}>
-              Dark
+              Escuro
             </DropdownMenuItem>
-            {/* Opção para seguir o tema do sistema */}
             <DropdownMenuItem onClick={() => setTheme("system")}>
-              System
+              Sistema
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* MENU DROPDOWN DE USUÁRIO */}
         <DropdownMenu>
-          {/* Ícone de usuário que abre o menu */}
-          <DropdownMenuTrigger>
-            <UserCircle2 className="cursor-pointer" />
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label="Menu do usuário">
+              <UserCircle2 aria-hidden />
+            </Button>
           </DropdownMenuTrigger>
-          {/* Conteúdo do menu com espaçamento superior de 10px */}
-          <DropdownMenuContent sideOffset={10}>
-            {/* Opção para ver perfil do usuário */}
+
+          <DropdownMenuContent sideOffset={10} align="end">
             <DropdownMenuItem>
-              <User className="h-[1.2rem] w-[1.2rem] mr-2" />
+              <User className="mr-2 h-4 w-4" aria-hidden />
               Perfil
             </DropdownMenuItem>
-            {/* Opção para acessar configurações */}
+
             <DropdownMenuItem>
-              <Settings2 className="h-[1.2rem] w-[1.2rem] mr-2" />
+              <Settings2 className="mr-2 h-4 w-4" aria-hidden />
               Configurações
             </DropdownMenuItem>
-            {/* Opção para sair com estilo destrutivo (vermelho) */}
+
             <DropdownMenuItem variant="destructive">
-              <LogOut className="h-[1.2rem] w-[1.2rem] mr-2 " />
+              <LogOut className="mr-2 h-4 w-4" aria-hidden />
               Sair
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -17,6 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
+import { SearchDialog } from "@/src/components/SearchDialog";
 
 type SidebarItem = {
   title: string;
@@ -32,12 +33,12 @@ const items: SidebarItem[] = [
   },
   {
     title: "Pesquisar",
-    url: "/",
+    url: "/", 
     icon: Search,
   },
   {
     title: "Estatísticas",
-    url: "/",
+    url: "/", 
     icon: ChartNoAxesCombined,
   },
   {
@@ -53,8 +54,13 @@ export default function AppSidebar() {
       <SidebarHeader className="py-6">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton aria-label="Página inicial do dashboard">
-              <ChartPie aria-hidden />
+            <SidebarMenuButton
+              size="lg"
+              aria-label="Página inicial do dashboard"
+            >
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <ChartPie className="size-4" aria-hidden />
+              </div>
               <span className="font-semibold">charts2u</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -65,16 +71,39 @@ export default function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map(({ title, url, icon: Icon }) => (
-                <SidebarMenuItem key={title}>
-                  <SidebarMenuButton asChild aria-label={title}>
-                    <Link href={url}>
-                      <Icon className="mr-2 h-4 w-4" aria-hidden />
-                      <span>{title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => {
+                const Icon = item.icon;
+
+                // LÓGICA ESPECIAL PARA O BOTÃO DE PESQUISA
+                if (item.title === "Pesquisar") {
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SearchDialog>
+                        {/* Note que removemos o 'asChild' aqui para controlar o botão diretamente */}
+                        <SidebarMenuButton
+                          aria-label={item.title}
+                          className="cursor-pointer"
+                        >
+                          <Icon className="mr-2 h-4 w-4" aria-hidden />
+                          <span>{item.title}</span>
+                        </SidebarMenuButton>
+                      </SearchDialog>
+                    </SidebarMenuItem>
+                  );
+                }
+
+                // LÓGICA PADRÃO PARA LINKS
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild aria-label={item.title}>
+                      <Link href={item.url}>
+                        <Icon className="mr-2 h-4 w-4" aria-hidden />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

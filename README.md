@@ -31,5 +31,5 @@ O projeto está sendo desenvolvido utilizando as versões mais recentes e estáv
 ---
 
 <p align="center">
-  Feito com 💜 por <a href="https://github.com/SEU_USUARIO" target="_blank">Gustavo Rodrigues</a>
+  Feito com 💜 por <a href="https://github.com/gusttazy" target="_blank">Gustavo Rodrigues</a>
 </p>

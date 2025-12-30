@@ -17,6 +17,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
+
+// Correção do caminho do SearchDialog
 import { SearchDialog } from "@/src/components/SearchDialog";
 
 type SidebarItem = {
@@ -33,17 +35,17 @@ const items: SidebarItem[] = [
   },
   {
     title: "Pesquisar",
-    url: "/", 
+    url: "#",
     icon: Search,
   },
   {
     title: "Estatísticas",
-    url: "/", 
+    url: "/",
     icon: ChartNoAxesCombined,
   },
   {
     title: "Configurações",
-    url: "/",
+    url: "/settings", 
     icon: Settings,
   },
 ];
@@ -73,13 +75,10 @@ export default function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => {
                 const Icon = item.icon;
-
-                // LÓGICA ESPECIAL PARA O BOTÃO DE PESQUISA
                 if (item.title === "Pesquisar") {
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SearchDialog>
-                        {/* Note que removemos o 'asChild' aqui para controlar o botão diretamente */}
                         <SidebarMenuButton
                           aria-label={item.title}
                           className="cursor-pointer"
@@ -92,7 +91,6 @@ export default function AppSidebar() {
                   );
                 }
 
-                // LÓGICA PADRÃO PARA LINKS
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild aria-label={item.title}>

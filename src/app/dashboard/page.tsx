@@ -7,7 +7,7 @@ import { Download } from "lucide-react";
 
 export default function DashboardHome() {
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 min-h-screen">
+    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 min-h-screen ">
       <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div>
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">

@@ -40,7 +40,7 @@ const items: SidebarItem[] = [
   },
   {
     title: "Estatísticas",
-    url: "/",
+    url: "/statistics",
     icon: ChartNoAxesCombined,
   },
   {
